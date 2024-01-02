@@ -1,4 +1,4 @@
-name: Bump Version and Commit
+name: Manual Workflow
 
 on:
   workflow_dispatch:
@@ -6,10 +6,10 @@ on:
       branchName:
         description: 'Branch to run the action on'
         required: true
-        default: 'main'
+        default: 'feature-branch'  # Replace with your feature branch name
 
 jobs:
-  bump-version:
+  run-on-feature-branch:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,24 +18,6 @@ jobs:
       with:
         ref: ${{ github.event.inputs.branchName }}
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '18.17.0'  # Specify the Node.js version
-
-    - name: Install Rush
-      run: npm install -g @microsoft/rush
-
-    - name: Install Dependencies
-      run: rush install
-
-    - name: Bump Versions
-      run: rush version --bump
-
-    - name: Commit and Push Changes
-      run: |
-        git config --global user.name 'Your Name'
-        git config --global user.email 'your-email@example.com'
-        git add -A
-        git commit -m "Bump package versions"
-        git push origin ${{ github.event.inputs.branchName }}
+    # Add your job steps here
+    - name: Example Step
+      run: echo "Running on ${{ github.event.inputs.branchName }}"
